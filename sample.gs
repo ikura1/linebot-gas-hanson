@@ -40,7 +40,7 @@ function doPost(e) {
     // ユーザーへの返信lID
     const replyToken = event.replyToken;
     // 送信するメッセージ
-    const text = "🍣食べたい！🍣";
+    const text = event.message.text;
     // ユーザーに送信する
     sendMessage(replyToken, text);
 }
