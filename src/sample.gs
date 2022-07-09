@@ -1,5 +1,7 @@
 const CHANNEL_ACCESS_TOKEN = "チャネルトークンを貼り付ける";
 
+const LINE_REPLY_URL = "https://api.line.me/v2/bot/message/reply";
+
 // テキストメッセージ送信関数
 function sendMessage(replyToken, messageText) {
     // 送信情報
@@ -24,8 +26,7 @@ function sendMessage(replyToken, messageText) {
         payload: JSON.stringify(postData),
     };
     // ユーザーに送信
-    const url = "https://api.line.me/v2/bot/message/reply";
-    UrlFetchApp.fetch(url, replyData);
+    UrlFetchApp.fetch(LINE_REPLY_URL, replyData);
 }
 
 /***
