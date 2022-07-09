@@ -40,7 +40,10 @@ function doPost(e) {
     // ユーザーへの返信lID
     const replyToken = event.replyToken;
     // 送信するメッセージ
-    const text = event.message.text;
+    let text = event.message.text;
+    if (text === "みずのたん") {
+        text = "たん言うな!";
+    }
     // ユーザーに送信する
     sendMessage(replyToken, text);
 }
