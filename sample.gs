@@ -1,4 +1,8 @@
 const CHANNEL_ACCESS_TOKEN = "チャネルトークンを貼り付ける";
+// https://docs.google.com/spreadsheets/d/1QXJn2aHkpC1nhVHvh--cIb5G5T9UvgLAVGrO6Y3zbk4/edit?hl=JA#gid=0
+// https://docs.google.com/spreadsheets/d/ここにスプレッドシートIDが入る/edit?hl=JA#gid=0
+const SPREADSHEET_ID = "スプレッドシートのIDを貼り付ける"
+const COUNT_CELL = "A1";
 
 const LINE_REPLY_URL = "https://api.line.me/v2/bot/message/reply";
 
@@ -32,6 +36,29 @@ function sendMessage(replyToken, messageText) {
 /***
  * 特殊なことを行わない限り上記は編集
 ***/
+// たんを取得する
+function getTanFromSpreadSheet() {
+    let cell = getCell();
+    return cell.getValue();
+}
+
+// たんをカウントする
+function incrementTanFromSpreadSheet() {
+    let cell = getCell();
+    if (!cell) {
+        cell.setValue("1");
+    } else {
+        cell.setValue(cell + 1);
+    }
+}
+
+// カウントしているセルの取得
+function getCell() {
+    const spreadSheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = spreadSheet.getSheets()[0];
+    const cell = sheet.getRange(COUNT_CELL);
+    return cell;
+}
 
 // Lineに呼び出される関数
 function doPost(e) {
@@ -43,6 +70,9 @@ function doPost(e) {
     let text = event.message.text;
     if (text === "みずのたん") {
         text = "たん言うな!";
+        incrementTanFromSpreadSheet();
+    } else if (text === "なんたん") {
+        text = getTanFromSpreadSheet() + "たん";
     }
     // ユーザーに送信する
     sendMessage(replyToken, text);
