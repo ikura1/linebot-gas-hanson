@@ -32,6 +32,7 @@ function sendMessage(replyToken, messageText) {
  * 特殊なことを行わない限り上記は編集
 ***/
 
+// Lineに呼び出される関数
 function doPost(e) {
     // ユーザーが送ってきた情報
     const event = JSON.parse(e.postData.contents).events[0];
