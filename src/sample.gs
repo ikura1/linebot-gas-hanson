@@ -3,7 +3,7 @@ const CHANNEL_ACCESS_TOKEN = "チャネルトークンを貼り付ける";
 // テキストメッセージ送信関数
 function sendMessage(replyToken, messageText) {
     // 送信情報
-    let postData = {
+    const postData = {
         replyToken: replyToken,
         messages: [
             {
@@ -18,7 +18,7 @@ function sendMessage(replyToken, messageText) {
         Authorization: "Bearer " + CHANNEL_ACCESS_TOKEN,
     };
     // ユーザーに送信する情報
-    let replyData = {
+    const replyData = {
         method: "POST",
         headers: headers,
         payload: JSON.stringify(postData),
@@ -34,11 +34,11 @@ function sendMessage(replyToken, messageText) {
 
 function doPost(e) {
     // ユーザーが送ってきた情報
-    let event = JSON.parse(e.postData.contents).events[0];
+    const event = JSON.parse(e.postData.contents).events[0];
     // ユーザーへの返信lID
     const replyToken = event.replyToken;
     // 送信するメッセージ
-    let text = "🍣食べたい！🍣";
+    const text = "🍣食べたい！🍣";
     // ユーザーに送信する
     sendMessage(replyToken, text);
 }
